@@ -2,6 +2,15 @@
 var playerCount = 0;
 var computerCount = 0;
 
+document.getElementById("player-score").innerHTML = playerCount;
+document.getElementById("computer-score").innerHTML = computerCount;
+document.getElementById("message").innerHTML = "Click on one of the buttons below to begin!";
+
+const victory = document.querySelector('#victory');
+
+const content = document.createElement('div');
+content.classList.add('content');
+
 // returns rock, paper, or scissors
 function getComputerChoice() {
     let randomNum = Math.floor((Math.random() * 3) + 1);
@@ -17,73 +26,86 @@ function getComputerChoice() {
     }
 }
 
+// plays a round
 function playRound(playerSelection, computerSelection) {
-    let correctedPlayerSelection = playerSelection.toLowerCase();
-
     // if tie
-    if(correctedPlayerSelection == computerSelection)
+    if(playerSelection == computerSelection)
     {
-        if(correctedPlayerSelection == "rock")
+        if(playerSelection == "rock")
         {
-            return "It's a draw! Rock ties with Rock.";
+            document.getElementById("message").innerHTML = "It's a draw! Rock ties with Rock.";
         }
-        if(correctedPlayerSelection == "paper")
+        if(playerSelection == "paper")
         {
-            return "It's a draw! Paper ties with Paper.";
+            document.getElementById("message").innerHTML = "It's a draw! Paper ties with Paper.";
         }
-        if(correctedPlayerSelection == "scissors")
+        if(playerSelection == "scissors")
         {
-            return "It's a draw! Scissors ties with Scissors.";
+            document.getElementById("message").innerHTML = "It's a draw! Scissors ties with Scissors.";
         }
     }
     //if player lost
-    else if(correctedPlayerSelection == "rock" && computerSelection == "paper") {
+    else if(playerSelection == "rock" && computerSelection == "paper") {
         computerCount++;
-        return "You lose! Paper beats Rock.";
+        document.getElementById("message").innerHTML = "You lose! Paper beats Rock.";
     }
-    else if(correctedPlayerSelection == "paper" && computerSelection == "scissors") {
+    else if(playerSelection == "paper" && computerSelection == "scissors") {
         computerCount++;
-        return "You lose! Scissors beats Paper.";
+        document.getElementById("message").innerHTML = "You lose! Scissors beats Paper.";
     }
-    else if(correctedPlayerSelection == "scissors" && computerSelection == "rock") {
+    else if(playerSelection == "scissors" && computerSelection == "rock") {
         computerCount++;
-        return "You lose! Rock beats Scissors.";
+        document.getElementById("message").innerHTML = "You lose! Rock beats Scissors.";
     }//if player won
-    else if(correctedPlayerSelection == "rock" && computerSelection == "scissors") {
+    else if(playerSelection == "rock" && computerSelection == "scissors") {
         playerCount++;
-        return "You win! Rock beats Scissors.";
+        document.getElementById("message").innerHTML = "You win! Rock beats Scissors.";
     }
-    else if(correctedPlayerSelection == "paper" && computerSelection == "rock") {
+    else if(playerSelection == "paper" && computerSelection == "rock") {
         playerCount++;
-        return "You win! Paper beats Rock.";
+        document.getElementById("message").innerHTML = "You win! Paper beats Rock.";
     }
-    else if(correctedPlayerSelection == "scissors" && computerSelection == "paper") {
+    else if(playerSelection == "scissors" && computerSelection == "paper") {
         playerCount++;
-        return "You win! Scissors beats Paper.";
+        document.getElementById("message").innerHTML = "You win! Scissors beats Paper.";
     }
 }
 
 function game() {
-    //prompts and runs 5 games
-    for (let i = 0; i < 5; i++) {
+    if(playerCount < 5 && computerCount < 5)
+    {
         let computerSelection = getComputerChoice();
-        let playerSelection = prompt("Choose rock, paper, or scissors");
-        console.log(playRound(playerSelection, computerSelection));
-    }
+        playRound(playerSelection, computerSelection);
+        console.log(playerCount, computerCount);
 
-    // prints overall winner
-    if(playerCount > computerCount) {
-        console.log("You won the most rounds!");
-    }
-    else if(computerCount > playerCount) {
-        console.log("The computer won the most rounds!");
-    }
-    else {
-        console.log("Overall, you and the computer tied!")
+        document.getElementById("player-score").innerHTML = playerCount;
+        document.getElementById("computer-score").innerHTML = computerCount;
+
+        // prints overall winner
+        if(playerCount == 5) {
+            console.log("You won five rounds!");
+            content.textContent = 'You won five rounds first! Reload to try again.';
+            victory.appendChild(content);
+        }
+        else if(computerCount == 5) {
+            console.log("The computer won five rounds!");
+            content.textContent = 'The computer won five rounds first! Reload to try again.';
+            victory.appendChild(content);
+        }
     }
 }
 
-game();
-// test via console
-//console.log(computerSelection);
-//console.log(playRound(playerSelection, computerSelection));
+function rockFunction() {
+    playerSelection = "rock";
+    game();
+}
+
+function paperFunction() {
+    playerSelection = "paper";
+    game();
+}
+
+function scissorsFunction() {
+    playerSelection = "scissors";
+    game();
+}

@@ -3,7 +3,50 @@
 
 body {
     margin: 25px;
-    background-color: #8594e4;
+    background-color: #d5def5;
     font-family: arial, sans-serif;
-    font-size: 14px;
+    font-size: 18px;
+    color: #430f58;
 }
+
+.button-container {
+    display: flex;
+}
+
+.button {
+    height: 100px;
+    flex: 1 1 0%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.button-internal {
+    background-color: #6643b5; /* Green */
+    border-color: #430f58;
+    color: #d5def5;
+    padding: 20px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    width: 180px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.score {
+    height: 100px;
+    flex: 1 1 0%;
+    text-align: center;
+}
+
+br {
+    display: block;
+    margin: 10px;
+    line-height:22px;
+ }
+ #player-score {
+    font-size: 60;
+ }
